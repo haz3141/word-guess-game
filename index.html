@@ -5,9 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Word Guess Game</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <div id="game"></div>
+
+    <div class="container">
+
+        <!-- Jumbotron -->
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-7">Guess the Word</h1>
+                <p class="lead">Guess the names of King of the Hill Characters</p>
+            </div>
+        </div>
+
+        <!-- Game Data -->
+        <div class="row">
+            <div class="col-md-12">
+
+                <!-- Secret Word -->
+                <div class="card">
+                    <div id="hiddenWord" class="card-body">
+                        Secret Word
+                    </div>
+                </div>
+
+                <!-- Wins -->
+                <div class="card">
+                    <div id="wins" class="card-body">
+                        Wins:
+                    </div>
+                </div>
+
+                <!-- Losses -->
+                <div class="card">
+                    <div id="losses" class="card-body">
+                        Losses:
+                    </div>
+                </div>
+
+                <!-- Guesses Left -->
+                <div class="card">
+                    <div id="numGuesses" class="card-body">
+                        Guesses Left:
+                    </div>
+                </div>
+
+                <!-- Guesses -->
+                <div class="card">
+                    <div id="userGuesses" class="card-body">
+                        Guesses:
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <script src="assets/javascript/game.js"></script>
 </body>
 </html>
