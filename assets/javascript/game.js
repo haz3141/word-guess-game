@@ -11,6 +11,7 @@ let userGuesses;
 let numMatches;
 let wins = 0;
 let losses = 0;
+let themeSong = document.getElementById('themeSong');
 
 // Array of potential names for the game
 const words = [
@@ -121,6 +122,8 @@ function checkWinLoss() {
         console.log('WINNER');
         wins++;
         document.querySelector('#wins').innerHTML = 'Wins: ' + wins;
+        // Play theme song when wins
+        playThemeSong();
         beginGame();
 
         
@@ -136,11 +139,24 @@ function checkWinLoss() {
     }
 }
 
+// Function for playing the KoH theme song
+function playThemeSong() {
+    themeSong.play();
+}
+
+// Function for pausing the KoH theme song
+function pauseThemeSong() {
+    themeSong.pause();
+}
+
 // Start the game for the first time here
 beginGame();
 
 // Run whenever key is pressed
 document.onkeyup = function(event) {
+
+    // Pause the song when a new game starts
+    pauseThemeSong();
 
     // Store user guess as a lowercase letter
     userGuess = event.key.toLowerCase();
