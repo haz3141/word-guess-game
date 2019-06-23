@@ -12,6 +12,7 @@ let numMatches;
 let wins = 0;
 let losses = 0;
 let themeSong = document.getElementById('themeSong');
+let lossSong = document.getElementById('lossSong');
 
 // Array of potential names for the game
 const words = [
@@ -35,6 +36,9 @@ function randWord() {
 
 // Start a new game
 function beginGame() {
+
+    // Checks to see if hidden video should be shown
+    easterEgg();
 
     // Assign random word, split letters, find number of letters
     wordToGuess = randWord();
@@ -135,6 +139,8 @@ function checkWinLoss() {
         console.log('LOSER');
         losses++;
         document.querySelector('#losses').innerHTML = 'Losses: ' + losses;
+        // Play loss audio
+        playLossSong();
         beginGame();
     }
 }
@@ -149,6 +155,21 @@ function pauseThemeSong() {
     themeSong.pause();
 }
 
+function playLossSong() {
+    lossSong.play();
+}
+
+// Function for showing hidden div with video
+// Video shows after three wins
+function easterEgg() {
+    let x = document.getElementById("easterEgg");
+    if (wins >= 3) {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+
 // Start the game for the first time here
 beginGame();
 
@@ -156,7 +177,7 @@ beginGame();
 document.onkeyup = function(event) {
 
     // Pause the song when a new game starts
-    pauseThemeSong();
+    // pauseThemeSong();
 
     // Store user guess as a lowercase letter
     userGuess = event.key.toLowerCase();
