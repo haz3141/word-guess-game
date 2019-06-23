@@ -15,7 +15,14 @@ let losses = 0;
 const words = [
     'hank',
     'bobby',
-    'bill'
+    'bill',
+    'peggy',
+    'dale',
+    'boomhauer',
+    'luanne',
+    'nancy',
+    'johnredcorn',
+    'ladybird'
 ];
 
 // Random Word Function
