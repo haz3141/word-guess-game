@@ -12,6 +12,7 @@ let numMatches;
 let wins = 0;
 let losses = 0;
 
+// Array of potential names for the game
 const words = [
     'hank',
     'bobby',
@@ -31,6 +32,7 @@ function randWord() {
     return cpuChoice;
 };
 
+// Start a new game
 function beginGame() {
 
     // Assign random word, split letters, find number of letters
@@ -38,7 +40,7 @@ function beginGame() {
     lettersToGuess = wordToGuess.split('');
     numLetters = lettersToGuess.length;
     hiddenWord = [];
-    numGuesses = numLetters + 3;
+    numGuesses = numLetters + 3; // Allow for three more guesses than letters in the chosen word
     userGuesses = [];
     numMatches = 0;
 
@@ -51,70 +53,99 @@ function beginGame() {
     console.log(lettersToGuess);
     console.log(numLetters);
     console.log(hiddenWord);
-    document.querySelector('#hiddenWord').innerHTML = hiddenWord;
     console.log(numGuesses);
+
+    // Reset the hidden word, number of guesses, and the guessed letters
+    document.querySelector('#hiddenWord').innerHTML = hiddenWord;
     document.querySelector('#numGuesses').innerHTML = 'Guesses Left: ' + numGuesses;
+    document.querySelector('#userGuesses').innerHTML = 'Guesses: ' + userGuesses;
 
 };
 
+// Checks for matching letter from user's choice
 function checkMatch(userGuess) {
 
+    // Runs if the user selected a matching letter
     if (lettersToGuess.includes(userGuess)) {
         console.log("bingo");
+
+        // This will check the matching letter and replace it in the hidden word
         for (let i = 0; i < numLetters; i++) {
             if (userGuess === lettersToGuess[i]) {
-                console.log("It's a match");
+
                 hiddenWord[i] = userGuess;
-                console.log(hiddenWord);
                 document.querySelector('#hiddenWord').innerHTML = hiddenWord;
+
+                // This is used in order to determine if all letters have been matched
                 numMatches++;
+
+                console.log("It's a match");
+                console.log(hiddenWord);
             } 
         }
+    // Runs if the user selected a non-matching letter
     } else {
+        // Decrease number of remaining guesses
         numGuesses--;
+
+        // Add the user's guess to the non-matching guesses and rewrite info to the screen
         userGuesses.push(userGuess);
-        console.log(userGuesses);
-        console.log('numGuesses: ' + numGuesses);
         document.querySelector('#userGuesses').innerHTML = 'Guesses: ' + userGuesses;
         document.querySelector('#numGuesses').innerHTML = 'Guesses Left: ' + numGuesses;
+
+        console.log(userGuesses);
+        console.log('numGuesses: ' + numGuesses);
     }
 
+    // Runs after each match or mismatch to determine if the game has been won or lost
     checkWinLoss();
 };
 
+// Is used to determine if the user has reused a letter before checking for a match or mismatch
 function checkRepeat(userGuess) {
-
     if (userGuesses.includes(userGuess) || hiddenWord.includes(userGuess)) {
         console.log('REPEAT');
     } else {
+        // If it's a fresh letter we check for a match
         checkMatch(userGuess);
     }
 }
 
+// This is used to determine if the game has been won or lost
 function checkWinLoss() {
+
+    // This runs when the number of matches is equal to the number of letters and the guesses remaining are more than zero
     if (numMatches === numLetters && numGuesses > 0) {
+        
+        // Wins are incremented, written to the page, and a new game is started
         console.log('WINNER');
         wins++;
         document.querySelector('#wins').innerHTML = 'Wins: ' + wins;
         beginGame();
+
+        
+
+    // This runs when the user has run out of guesses 
     } else if (numGuesses === 0) {
-        losses++;
+        
+        // Losses are incremented, written to the page, and a new game is started
         console.log('LOSER');
+        losses++;
         document.querySelector('#losses').innerHTML = 'Losses: ' + losses;
         beginGame();
     }
 }
 
-// Start the game
+// Start the game for the first time here
 beginGame();
 
 // Run whenever key is pressed
 document.onkeyup = function(event) {
 
-    // Store user guess
+    // Store user guess as a lowercase letter
     userGuess = event.key.toLowerCase();
     console.log(userGuess);
 
-    // Checks for repeat presses
+    // Checks for repeat presses which will subsequently run other functions
     checkRepeat(userGuess);
 };
